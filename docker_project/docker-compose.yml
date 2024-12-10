@@ -1,0 +1,21 @@
+
+services:
+  user_generator:
+    build:
+      context: ./app1  # Assurez-vous que le répertoire ./app1 contient un Dockerfile
+    container_name: user_generator
+    volumes:
+      - ./shared_data:/shared_data  # Répertoire partagé
+    command: python /app/user_generator.py
+    restart: always
+
+  password_updater:
+    build:
+      context: ./app2  # Assurez-vous que le répertoire ./app2 contient un Dockerfile
+    container_name: password_updater
+    volumes:
+      - ./shared_data:/shared_data  # Répertoire partagé
+      - ./updated_data:/updated_data  # Répertoire des données mises à jour
+    command: python /app/password_updater.py
+    restart: always
+
